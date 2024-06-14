@@ -1,0 +1,54 @@
+swagger: '2.0'
+post:
+  description: Endpoint to upload an NN model and classify input text.
+  version: '1.0.0'
+  title: Upload NN Model
+host: localhost:5000
+basepath: '/'
+schemes:
+  - http
+paths:
+/upload_nn:
+post:
+tags:
+  - name: Models
+summary: Upload an NN model and classify input text
+consumes:
+  - multipart/form-data
+parameters:
+  - name: text
+    in: formData
+    description: The text to classify
+    required: true
+    type: string
+  - name: file
+    in: formData
+    description: The NN model file to upload
+    required: true
+    type: file
+responses:
+  '200':
+    description: Model uploaded and text classified successfully
+    schema:
+    type: object
+    properties:
+    message:
+    type: string
+    text:
+    type: string
+    sentiment:
+    type: string
+  '400':
+    description: Error in model loading
+    schema:
+    type: object
+    properties:
+    error:
+    type: string
+  '500':
+    description: Server error
+    schema:
+    type: object
+    properties:
+    error:
+    type: string
